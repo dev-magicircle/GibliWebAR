@@ -1,0 +1,15 @@
+#section1Title{
+    text-align:left;
+    color:#ECEFF1;
+    margin-left:10vw;
+    margin-top:50vh;
+    font-size:50px;
+}
+.fullPage{
+    vertical-align: middle;
+}
+.qrCode{
+    display:block;
+    margin:0px auto;
+    width:100px;
+}
