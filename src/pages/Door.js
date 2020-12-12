@@ -45,10 +45,10 @@ class Door extends React.Component {
             }}>
                 <div id="scene" className="spotlight">
                     <div data-depth="0.1" style={{
-                        color:'white'}}>My first Layer!
+                        color:'white'}}><img style={{width:'20vh'}} src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/%EC%BA%98%EC%8B%9C%ED%8D%BC-min.png?alt=media&token=75ccf42f-6243-4c29-b0c0-4d14b4654920"/>
                     </div>
                     <div data-depth="0.9"  style={{
-                        color:'white'}}>My second Layer!</div>
+                        color:'white'}}>Look for the compass.</div>
                     {/*<button onClick={this._addNumber}>dd</button>*/}
                     {/*<div className="styles">*/}
                     {/*    {this.props.match.params.id}를 입력하세요.*/}

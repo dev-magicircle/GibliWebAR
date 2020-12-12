@@ -20,6 +20,10 @@ class Home extends React.Component {
         // this._getVisible();
     }
 
+    //폰에서 ar 화면으로 자동으로 넘어가게끔
+    _getAr=async()=>{
+        Firebase.database().ref('/' + this.state.id).update({arEnter: true});
+    }
     //고유 숫자 번호 추가
     _getNumber = async () => {
         let num = 0;
@@ -29,7 +33,7 @@ class Home extends React.Component {
                 this.setState({id: dataSnapshot.numChildren() + 1})
             })).then((dataSnapshot => {
             console.log(this.state.id);
-            Firebase.database().ref('/' + this.state.id).set({doorEnter: false});
+            Firebase.database().ref('/' + this.state.id).set({doorEnter: false,arEnter:false});
         })).then((dataSnapshot => {
             Firebase.database().ref('/' + this.state.id).on('value', (snapshot) => {
                 const data = snapshot.val().doorEnter;
@@ -79,7 +83,7 @@ class Home extends React.Component {
                                     You can go in now.
                                 </div>
                                 <Link to={`/Door/${this.state.id}`}>
-                                    <button>Go</button>
+                                    <button onClick={this._getAr}>Go</button>
                                 </Link>
                             </div>
                         </FullpageSection></div> :

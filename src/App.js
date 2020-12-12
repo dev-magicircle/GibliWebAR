@@ -8,7 +8,6 @@ import Camera from './pages/Camera';
 import FirstAr from "./pages/FirstAr";
 
 class App extends React.Component {
-
     constructor(props){
       super(props);
       this.state = {
