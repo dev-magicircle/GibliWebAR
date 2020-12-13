@@ -85,8 +85,8 @@ class FirstAr extends Component {
                         <Marker parameters={{
                             preset: 'pattern',
                             type: 'pattern',
-                            patternUrl: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-marker.patt',
-                            url: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-marker.patt'
+                            patternUrl: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt',
+                            url: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt'
                         }}>
                             <a-box color="blue" position="0 0.09 0" scale="0.4 0.8 0.8">
                                 <a-animation
