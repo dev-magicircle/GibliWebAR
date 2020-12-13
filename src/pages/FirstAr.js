@@ -1,40 +1,48 @@
-import React from 'react';
-import Firebase from 'firebase';
-import config from "../firebase.config";
-import '../js/firstar';
+import React, {Component} from 'react'
+import Firebase from 'firebase'
+import config from "../firebase.config"
+import '../js/firstar'
+import AFrameRenderer from "../aframe/AframeRender";
+import Marker from "../aframe/Marker";
+// import { Entity } from "aframe-react";
+import {render} from 'react-dom'
+
 import {Link} from 'react-router-dom';
 
 // import config from "../firebase.config";
 
-class FirstAr extends React.Component {
+class FirstAr extends Component {
     state = {
         // id: ,
-        password: '',
-        doorEnter: false,
-        arEnter:false,
+        // password: '',
+        // doorEnter: false,
+        arEnter: false,
     };
 
     componentDidMount() {
         // this._getNumber();
         // this._getVisible();
-        const script1 = document.createElement("script");
-        const script2 = document.createElement("script");
-        script1.src = "https://aframe.io/releases/1.0.4/aframe.min.js";
-        script1.async = true;
-        script2.src = "https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js";
-        script2.async = true;
-
-        document.body.appendChild(script1);
-        document.body.appendChild(script2);
-
-        // eslint-disable-next-line no-undef
-        AFRAME.registerComponent('markerhandler', {
-            init: function () {
-                this.el.sceneEl.addEventListener('markerFound', () => {
-                    // redirect to custom URL
-                    window.location = 'https://github.com/AR-js-org/AR.js';
-                });
-            }});
+        // const script1 = document.createElement("script");
+        // const script2 = document.createElement("script");
+        //
+        // script1.src = "https://aframe.io/releases/1.0.4/aframe.min.js";
+        // script1.async = true;
+        // script2.src = "https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js";
+        // script2.async = true;
+        //
+        //
+        // document.body.appendChild(script1);
+        // document.body.appendChild(script2);
+        //
+        // // eslint-disable-next-line no-undef
+        // AFRAME.registerComponent('markerhandler', {
+        //     init: function () {
+        //         this.el.sceneEl.addEventListener('markerFound', () => {
+        //             // redirect to custom URL
+        //             window.location = 'https://github.com/AR-js-org/AR.js';
+        //         });
+        //     }
+        // });
     }
 
     handleChange = (e) => {
@@ -64,19 +72,47 @@ class FirstAr extends React.Component {
     render() {
 
         return (<div>
-                {!this.state.arEnter?
+                {!this.state.arEnter ?
                     //ar들어온 후
-                    <div>
-                        {/* minimal loader shown until image descriptors are loaded */}
-                        <div className="arjs-loader">
-                            <div>Loading, please wait...</div>
-                        </div>
-                        <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
-                            <a-nft markerhandler type="nft" url="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/%EB%82%98%EC%B9%A8%EB%B0%98-min.png?alt=media&token=d7ddba82-3e02-4806-a94f-9959c667eef7">
-                            </a-nft>
-                            <a-entity camera />
-                        </a-scene>
-                    </div>:
+                    <AFrameRenderer
+                        // arToolKit={{
+                        //     trackingMethod: "best",
+                        //     sourceType: "image",
+                        //     sourceUrl: "../images/hiro_marker.png"
+                        // }}
+                        inherent={true}
+                    >
+                        <Marker parameters={{
+                            preset: 'pattern',
+                            type: 'pattern',
+                            patternUrl: 'https://raw.githubusercontent.com/lbelfield/augmented-reality/master/src/components/trainTicket/train-ticket.patt',
+                            url: 'https://raw.githubusercontent.com/lbelfield/augmented-reality/master/src/components/trainTicket/train-ticket.patt'
+                        }}>
+                            <a-box color="blue" position="0 0.09 0" scale="0.4 0.8 0.8">
+                                <a-animation
+                                    attribute="rotation"
+                                    to="360 0 0"
+                                    dur="2000"
+                                    easing="linear"
+                                    repeat="indefinite"
+                                />
+                            </a-box>
+                        </Marker>
+                    </AFrameRenderer>
+                    // <AFrameRenderer inherent={true}>
+                    //     <Marker parameters={{ preset: "custom" }}>
+                    //         <a-box color="blue" position="0 0.09 0" scale="0.4 0.8 0.8">
+                    //             <a-animation
+                    //                 attribute="rotation"
+                    //                 to="360 0 0"
+                    //                 dur="2000"
+                    //                 easing="linear"
+                    //                 repeat="indefinite"
+                    //             />
+                    //         </a-box>
+                    //     </Marker>
+                    // </AFrameRenderer>
+                    :
                     //ar들어오기 전
                     <div style={{
                         backgroundImage: `url(${'https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/W%20%EC%A0%84%EC%8B%9C%20%EC%86%8C%EA%B0%9C%203-min.png?alt=media&token=3cfcf953-9819-462e-abf2-e9c19111af62'})`,

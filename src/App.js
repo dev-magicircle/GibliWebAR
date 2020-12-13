@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Door from './pages/Door';
 import Camera from './pages/Camera';
 import FirstAr from "./pages/FirstAr";
+import Compass from './pages/Compass';
 
 class App extends React.Component {
     constructor(props){
@@ -15,17 +16,7 @@ class App extends React.Component {
         readError:null
       };
     }
-    async componentDidMount(){
-        this.setState({readError:null});
-        try{
-           Firebase.initializeApp(config);
-            Firebase.database().ref('1/style').on("value",snapshot=>{
-                this.setState({style1:snapshot.val()})
-            });
-        }catch(error){
-            this.setState({readError:error.message})
-        }
-    }
+
 
     render(){
         return(
@@ -36,6 +27,7 @@ class App extends React.Component {
                         <Route path="/door/:id" component={Door}/>
                         <Route path="/camera/:id" component={Camera}/>
                         <Route path="/firstar" component={FirstAr}/>
+                        <Route path="/compass" component={Compass}/>
                     </Switch>
                 </Router>
             </div>
