@@ -3,25 +3,27 @@ import Firebase from 'firebase';
 import config from "../firebase.config";
 import '../Home.css';
 import {Link} from 'react-router-dom';
-import Door from './Door';
+import Door from './web/Door';
 import Fullpage, {FullPageSections, FullpageSection} from '@ap.cx/react-fullpage'
 import '../react-transitions.css';
+
+
 // import config from "../firebase.config";
 
 class Home extends React.Component {
     state = {
         doorEnter: false,
         id: 0,
-        test:false,
+        test: false,
     };
 
-    componentDidMount(){
+    componentDidMount() {
         this._getNumber();
         // this._getVisible();
     }
 
     //폰에서 ar 화면으로 자동으로 넘어가게끔
-    _getAr=async()=>{
+    _getAr = async () => {
         Firebase.database().ref('/' + this.state.id).update({arEnter: true});
     }
     //고유 숫자 번호 추가
@@ -33,12 +35,27 @@ class Home extends React.Component {
                 this.setState({id: dataSnapshot.numChildren() + 1})
             })).then((dataSnapshot => {
             console.log(this.state.id);
-            Firebase.database().ref('/' + this.state.id).set({doorEnter: false,arEnter:false});
+            Firebase.database().ref('/' + this.state.id).set({
+                doorEnter: false,
+                arEnter: false,
+                compass1RedEnter: false,
+                compass1GreenEnter: false,
+                compass1BlueEnter: false,
+                compass1BlackEnter: false,
+                compass2RedEnter: false,
+                compass2GreenEnter: false,
+                compass2YellowEnter: false,
+                compass2BalckEnter: false,
+                howlEnter:false,
+                turnipHeadEnter:false,
+                witchEnter:false,
+                marklEnter:false,
+                sophieEnter:false
+            });
         })).then((dataSnapshot => {
             Firebase.database().ref('/' + this.state.id).on('value', (snapshot) => {
                 const data = snapshot.val().doorEnter;
                 this.setState({doorEnter: data});
-                console.log(this.state.doorEnter);
             })
         }))
 
@@ -70,14 +87,14 @@ class Home extends React.Component {
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover'
                     }}></FullpageSection>
-                    {this.state.doorEnter? <div><FullpageSection class="section3 Enter" style={{
+                    {this.state.doorEnter ? <div><FullpageSection class="section3 Enter" style={{
                             backgroundImage: `url(${'https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/W%20%EC%A0%84%EC%8B%9C%20%EC%86%8C%EA%B0%9C%203-min.jpg?alt=media&token=96afa857-7fa9-475b-a2f5-954df6446951'})`,
                             padding: '1em',
                             backgroundRepeat: 'no-repeat',
                             backgroundSize: 'cover',
-                            textAlign:'center'
+                            textAlign: 'center'
                         }}>
-                            <div  className="transition-container" style={{marginTop:'40vh'}}>
+                            <div className="transition-container" style={{marginTop: '40vh'}}>
 
                                 <div style={{color: 'black'}}>
                                     You can go in now.
@@ -92,9 +109,9 @@ class Home extends React.Component {
                             padding: '1em',
                             backgroundRepeat: 'no-repeat',
                             backgroundSize: 'cover',
-                            textAlign:'center'
+                            textAlign: 'center'
                         }}>
-                            <img style={{marginTop:'40vh'}} class="qrCode"
+                            <img style={{marginTop: '40vh'}} class="qrCode"
                                  src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/frame.png?alt=media&token=5be0fe12-c438-4600-a856-498b21daca68"/>
                             <div>
                                 {/*{this.state.doorEnter ? <Link to={`/Door/${this.state.id}`}><button></button></Link>:'d'}*/}

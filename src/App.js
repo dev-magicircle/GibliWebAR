@@ -1,12 +1,11 @@
 import React,{useEffect} from "react";
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
-import config from "../src/firebase.config";
-import Firebase from 'firebase';
 import Home from './pages/Home';
-import Door from './pages/Door';
-import Camera from './pages/Camera';
-import FirstAr from "./pages/FirstAr";
-import Compass from './pages/Compass';
+import Door from './pages/web/Door';
+import Camera from './pages/mobile/Camera';
+import FirstAr from "./pages/mobile/FirstAr";
+import Compass from './pages/mobile/Compass';
+import Persona from './pages/web/Persona';
 
 class App extends React.Component {
     constructor(props){
@@ -25,9 +24,9 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route path="/door/:id" component={Door}/>
-                        <Route path="/camera/:id" component={Camera}/>
                         <Route path="/firstar" component={FirstAr}/>
                         <Route path="/compass" component={Compass}/>
+                        <Route path="/persona" component={Persona}/>
                     </Switch>
                 </Router>
             </div>

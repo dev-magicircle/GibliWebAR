@@ -1,6 +1,6 @@
 import React from 'react';
-import Firebase from 'firebase';
-import config from "../firebase.config";
+// import Firebase from '../firebase.json';
+import config from "../../firebase.config";
 import {Link} from 'react-router-dom';
 
 // import config from "../firebase.config";

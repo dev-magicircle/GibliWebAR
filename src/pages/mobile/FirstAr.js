@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import Firebase from 'firebase'
-import config from "../firebase.config"
-import '../js/firstar'
-import AFrameRenderer from "../aframe/AframeRender";
-import Marker from "../aframe/Marker";
-// import { Entity } from "aframe-react";
+import Firebase from '../../firebase.json'
+import config from "../../firebase.config"
+import '../../js/firstar'
+import AFrameRenderer from "../../aframe/AframeRender";
+import Marker from "../../aframe/Marker";
+import QrReader from 'react-qr-reader'
 import {render} from 'react-dom'
 
 import {Link} from 'react-router-dom';
@@ -13,11 +13,23 @@ import {Link} from 'react-router-dom';
 
 class FirstAr extends Component {
     state = {
-        // id: ,
-        // password: '',
-        // doorEnter: false,
+        id: 0,
+        password: '',
+        doorEnter: false,
         arEnter: false,
+        result: 'No result'
     };
+
+    handleScan = data => {
+        if (data) {
+            this.setState({
+                result: data
+            })
+        }
+    }
+    handleError = err => {
+        console.error(err)
+    }
 
     componentDidMount() {
         // this._getNumber();
@@ -48,8 +60,7 @@ class FirstAr extends Component {
     handleChange = (e) => {
         this.setState({
             password: e.target.value
-        })
-        console.log(this.state.password);
+        });
     }
 
     _getEnterPassWord = async () => {
@@ -69,49 +80,52 @@ class FirstAr extends Component {
         }))
     }
 
+    appendChild() {
+        console.log('dd');
+    }
+
+
     render() {
 
         return (<div>
                 {!this.state.arEnter ?
                     //ar들어온 후
-                    <AFrameRenderer
-                        // arToolKit={{
-                        //     trackingMethod: "best",
-                        //     sourceType: "image",
-                        //     sourceUrl: "../images/hiro_marker.png"
-                        // }}
-                        inherent={true}
-                    >
-                        <Marker parameters={{
-                            preset: 'pattern',
-                            type: 'pattern',
-                            patternUrl: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt',
-                            url: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt'
-                        }}>
-                            <a-box color="blue" position="0 0.09 0" scale="0.4 0.8 0.8">
-                                <a-animation
-                                    attribute="rotation"
-                                    to="360 0 0"
-                                    dur="2000"
-                                    easing="linear"
-                                    repeat="indefinite"
-                                />
-                            </a-box>
-                        </Marker>
-                    </AFrameRenderer>
-                    // <AFrameRenderer inherent={true}>
-                    //     <Marker parameters={{ preset: "custom" }}>
-                    //         <a-box color="blue" position="0 0.09 0" scale="0.4 0.8 0.8">
-                    //             <a-animation
-                    //                 attribute="rotation"
-                    //                 to="360 0 0"
-                    //                 dur="2000"
-                    //                 easing="linear"
-                    //                 repeat="indefinite"
-                    //             />
-                    //         </a-box>
+                    <div>
+                        <QrReader
+                            delay={300}
+                            onError={this.handleError}
+                            onScan={this.handleScan}
+                            style={{width: '100%'}}
+                        />
+                        <p>{this.state.result}</p>
+                        {this.state.result != 'https://qrco.de/bbrCSd' ? <div></div> :
+                            <div><Link to={`/compass/${this.state.password}`}>
+                                <button>Go</button>
+                            </Link></div>}
+                    </div>
+                    // <AFrameRenderer
+                    //     inherent={true}
+                    //     getSceneRef={(ref) => this.scene = ref}
+                    //     // arToolKit={{ trackingMethod: "tango" }}
+                    // >
+                    //     <Marker markerhandler parameters={{
+                    //         "hit-testing-enabled": true,
+                    //         preset: 'pattern',
+                    //         type: 'pattern',
+                    //         patternUrl: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt',
+                    //         url: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt',
+                    //         // "hit-testing-enabled": true
+                    //     }}>
+                    //         <a-box onClick={() => this.appendChild()}>><button>d</button></a-box>
+                    //         {/*<a-entity*/}
+                    //         {/*    // onClick={this._entityClick}*/}
+                    //         {/*    position="0 0 0"*/}
+                    //         {/*    scale="0.05 0.05 0.05"*/}
+                    //         {/*    gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"*/}
+                    //         {/*></a-entity>*/}
                     //     </Marker>
                     // </AFrameRenderer>
+
                     :
                     //ar들어오기 전
                     <div style={{
@@ -120,13 +134,11 @@ class FirstAr extends Component {
                         backgroundSize: 'cover',
                         height: '100vh',
                         textAlign: 'center',
-
                     }}>
                         <div style={{paddingTop: '40vh'}}>
                             <div style={{color: 'white', fontSize: '20px'}}>Enter your password</div>
                             <input value={this.state.password} onChange={this.handleChange}></input>
                             <button onClick={this._getEnterPassWord}>Enter</button>
-
                         </div>
 
                     </div>}</div>

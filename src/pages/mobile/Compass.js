@@ -27,26 +27,23 @@ function Compass1Red() {
     } = useThree()
     const group = useRef();
     const {nodes} = useLoader(GLTFLoader, "models/arwing.glb");
-    useFrame(() => {
-        // group.current.rotation.y += 0.004;
-    });
+
     return (
         <>
             <group ref={group}>
                 <mesh
                     visible
-                    geometry={nodes.Default.geometry}
-                    onClick={(e) => console.log("click")}
+                    // geometry={nodes.Default.geometry}
+                    // onClick={(e) => console.log("click")}
                 >
-                    <meshStandardMaterial
-                        attach="material"
-                        color="white"
-                        roughness={0.3}
-                        metalness={0.3}
-                    />
+                    {/*<meshStandardMaterial*/}
+                    {/*    attach="material"*/}
+                    {/*    color="red"*/}
+                    {/*    roughness={0.3}*/}
+                    {/*    metalness={0.3}*/}
+                    {/*/>*/}
                 </mesh>
             </group>
-
             <orbitControls args={[camera, domElement]}/>
         </>
     );
@@ -58,7 +55,7 @@ function Compass1Green() {
         gl: {domElement}
     } = useThree()
     const group = useRef();
-    const {nodes} = useLoader(GLTFLoader, "models/arwing.glb");
+    const {nodes} = useLoader(GLTFLoader, "models/AnyConv.com__map_all.glb");
     useFrame(() => {
         // group.current.rotation.y += 0.004;
     });
@@ -66,14 +63,14 @@ function Compass1Green() {
         <>
             <group ref={group}>
                 <mesh
-                    position={[10,0,1]}
+                    position={[0,0,1]}
                     visible
-                    geometry={nodes.Default.geometry}
+                    // geometry={nodes.Default.geometry}
                     onClick={(e) => console.log("click1")}
                 >
                     <meshStandardMaterial
                         attach="material"
-                        color="white"
+                        color="green"
                         roughness={0.3}
                         metalness={0.3}
                     />
@@ -99,8 +96,9 @@ class Compass extends React.Component {
                 <Suspense fallback={<Loading/>}>
                     <Compass1Red/>
                     <Compass1Green/>
+                    {/*<Compass1Black/>*/}
+                    {/*<Compass1Blue/>*/}
                 </Suspense>
-
             </Canvas>
         </>
     );}
