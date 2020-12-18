@@ -17,7 +17,15 @@ class FirstAr extends Component {
         password: '',
         doorEnter: false,
         arEnter: false,
-        result: 'No result'
+        result: 'No result',
+        compass1Black: false,
+        compass1Blue: false,
+        compass1Green: false,
+        compass1Red: false,
+        compass2Black: false,
+        compass2Green: false,
+        compass2Red: false,
+        compass2Yellow: false,
     };
 
     handleScan = data => {
@@ -32,29 +40,45 @@ class FirstAr extends Component {
     }
 
     componentDidMount() {
-        // this._getNumber();
+        this._getDoorEnter();
         // this._getVisible();
-        // const script1 = document.createElement("script");
-        // const script2 = document.createElement("script");
-        //
-        // script1.src = "https://aframe.io/releases/1.0.4/aframe.min.js";
-        // script1.async = true;
-        // script2.src = "https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js";
-        // script2.async = true;
-        //
-        //
-        // document.body.appendChild(script1);
-        // document.body.appendChild(script2);
-        //
-        // // eslint-disable-next-line no-undef
-        // AFRAME.registerComponent('markerhandler', {
-        //     init: function () {
-        //         this.el.sceneEl.addEventListener('markerFound', () => {
-        //             // redirect to custom URL
-        //             window.location = 'https://github.com/AR-js-org/AR.js';
-        //         });
-        //     }
-        // });
+    }
+
+    //고유 숫자 번호 추가
+    _getDoorEnter = async () => {
+        let num = 0;
+        if (!Firebase.apps.length) Firebase.initializeApp(config);
+        Firebase.database().ref('/' + this.state.password).on("value", (snapshot) => {
+            const compass1BlackData = snapshot.val().compass1Black;
+            const compass1BlueData = snapshot.val().compass1Blue;
+            const compass1GreenData = snapshot.val().compass1Green;
+            const compass1RedData = snapshot.val().compass1Red;
+            const compass2BlackData = snapshot.val().compass2Black;
+            const compass2GreenData = snapshot.val().compass2Green;
+            const compass2RedData = snapshot.val().compass2Red;
+            const compass2YellowData = snapshot.val().compass2Yellow;
+            this.setState({
+                compass1Black: compass1BlackData,
+                compass1Blue: compass1BlueData,
+                compass1Green: compass1GreenData,
+                compass1Red: compass1RedData,
+                compass2Black: compass2BlackData,
+                compass2Green: compass2GreenData,
+                compass2Red: compass2RedData,
+                compass2Yellow: compass2YellowData,
+            })
+
+        })
+            .then((dataSnapshot => {
+
+            }))
+        // })).then((dataSnapshot => {
+        //     Firebase.database().ref('/' + this.state.id).on('value', (snapshot) => {
+        //         const data = snapshot.val().doorEnter;
+        //         this.setState({doorEnter: data});
+        //     })
+        // }))
+
     }
 
     handleChange = (e) => {
@@ -86,7 +110,6 @@ class FirstAr extends Component {
 
 
     render() {
-
         return (<div>
                 {!this.state.arEnter ?
                     //ar들어온 후
@@ -95,13 +118,19 @@ class FirstAr extends Component {
                             delay={300}
                             onError={this.handleError}
                             onScan={this.handleScan}
-                            style={{width: '100%'}}
+                            // style={{width: '100%'}}
                         />
                         <p>{this.state.result}</p>
                         {this.state.result != 'https://qrco.de/bbrCSd' ? <div></div> :
-                            <div><Link to={`/compass/${this.state.password}`}>
-                                <button>Go</button>
-                            </Link></div>}
+                            <div>
+                                <img src=""/>
+                                <img/>
+                                <img/>
+                                <img/>
+                                {/*<Link to={`/compass/${this.state.password}`}>*/}
+                                {/*    <button>Go</button>*/}
+                                {/*</Link>*/}
+                            </div>}
                     </div>
                     // <AFrameRenderer
                     //     inherent={true}

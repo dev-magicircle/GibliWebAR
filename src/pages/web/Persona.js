@@ -1,11 +1,38 @@
 import React from 'react';
+import ReactDOM from "react-dom";
+import "fullpage.js/vendors/scrolloverflow";
 import ReactFullpage from "@fullpage/react-fullpage";
+
+import Swiper from 'swiper'
 import '../../css/Persona.css';
+import Slider from "react-slick";
 // import Firebase from '../firebase.json';
 import config from "../../firebase.config";
 import {Link} from 'react-router-dom';
 
 // import config from "../firebase.config";
+var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+};
+
+function Section() {
+    return
+    (<div className="section">
+        <div className="slide">
+            <h3>Slide 2.1</h3>
+        </div>
+        <div className="slide">
+            <h3>Slide 2.2</h3>
+        </div>
+        <div className="slide">
+            <h3>Slide 2.3</h3>
+        </div>
+    </div>)
+}
 
 class Persona extends React.Component {
     state = {
@@ -16,6 +43,7 @@ class Persona extends React.Component {
         turnipHeadEnter: false,
         sophieEnter: false,
     };
+
 
     onLeave(origin, destination, direction) {
         console.log("Leaving section " + origin.index);
@@ -85,16 +113,63 @@ class Persona extends React.Component {
                                      })}/>
 
                             </div>
-                            
                             <div className="section">
+                                {this.state.marklEnter?
+                                    <div>dd</div>:<div></div>}
                             </div>
-                            <div className="section">
-                            </div>
+
+                            {/*{this.state.marklEnter ?*/}
+                            {/*    <div> <Slider {...settings}>*/}
+                            {/*        <div>*/}
+                            {/*            <h3>1</h3>*/}
+                            {/*        </div>*/}
+                            {/*        <div>*/}
+                            {/*            <h3>2</h3>*/}
+                            {/*        </div>*/}
+                            {/*        <div>*/}
+                            {/*            <h3>3</h3>*/}
+                            {/*        </div>*/}
+                            {/*    </Slider></div>: <div></div>}*/}
+                            {/*{this.state.sophieEnter ?  <div> <Slider {...settings}>*/}
+                            {/*    <div>*/}
+                            {/*        <h3>1</h3>*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <h3>2</h3>*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <h3>3</h3>*/}
+                            {/*    </div>*/}
+                            {/*</Slider></div>: <div></div>}*/}
+                            {/*{this.state.turnipHeadEnter ?  <div> <Slider {...settings}>*/}
+                            {/*    <div>*/}
+                            {/*        <h3>1</h3>*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <h3>2</h3>*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <h3>3</h3>*/}
+                            {/*    </div>*/}
+                            {/*</Slider></div>: <div></div>}*/}
+                            {/*{this.state.witchEnter ? <div> <Slider {...settings}>*/}
+                            {/*    <div>*/}
+                            {/*        <h3>1</h3>*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <h3>2</h3>*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <h3>3</h3>*/}
+                            {/*    </div>*/}
+                            {/*</Slider></div>: <div></div>}*/}
+
                         </div>
                     );
                 }}
             />
-        );
+        )
+            ;
     }
 }
 
