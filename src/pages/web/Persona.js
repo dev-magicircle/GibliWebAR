@@ -138,32 +138,53 @@ class Persona extends React.Component {
 
                             </div>
 
-                            <div className="section">
+                            <div className="section" style={{width:'100vw'}}>
 
                                 {this.state.howlEnter?
-                                    <AFrameRenderer
-                                        inherent={true}
-                                        getSceneRef={(ref) => this.scene = ref}
-                                        // arToolKit={{ trackingMethod: "tango" }}
-                                    >
-                                        <Marker markerhandler parameters={{
-                                            "hit-testing-enabled": true,
-                                            preset: 'pattern',
-                                            type: 'pattern',
-                                            patternUrl: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt',
-                                            url: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt',
-                                            // "hit-testing-enabled": true
+                                    <div>
+                                    <div style={{
+                                        height: '100vh',
+                                        backgroundImage: `url(${'https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/howlOrigin.png?alt=media&token=8fc9a641-33b1-48dc-9d7a-c252061782c2'})`,
+                                        padding: '1em',
+                                        backgroundRepeat: 'no-repeat',
+                                        backgroundSize: 'cover'
+                                    }}>
+                                        </div>
+                                        <div style={{
+                                            height: '100vh',
+                                            backgroundImage: `url(${'https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/howlOrange.png?alt=media&token=bd1ac389-a71e-4fde-badc-e40c8579af1e'})`,
+                                            padding: '1em',
+                                            backgroundRepeat: 'no-repeat',
+                                            backgroundSize: 'cover'
                                         }}>
-                                            <a-box onClick={() => this.appendChild()}>><button>d</button></a-box>
-                                            {/*<a-entity*/}
-                                            {/*    // onClick={this._entityClick}*/}
-                                            {/*    position="0 0 0"*/}
-                                            {/*    scale="0.05 0.05 0.05"*/}
-                                            {/*    gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"*/}
-                                            {/*></a-entity>*/}
-                                        </Marker>
-                                    </AFrameRenderer>
+                                        </div>
+                                        <div style={{
+                                            height: '100vh',
+                                            backgroundImage: `url(${'https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/howlBlue.png?alt=media&token=366b9c75-13a3-4e5c-8c51-1ffed086fdf9'})`,
+                                            padding: '1em',
+                                            backgroundRepeat: 'no-repeat',
+                                            backgroundSize: 'cover'
+                                        }}>
+                                        </div>
+                                        <div style={{
+                                            height: '100vh',
+                                            backgroundImage: `url(${'https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/howlBlack.png?alt=media&token=c4662761-dfa2-4f30-b845-a8e3d14aab44'})`,
+                                            padding: '1em',
+                                            backgroundRepeat: 'no-repeat',
+                                            backgroundSize: 'cover'
+                                        }}>
+                                        </div>
+                                        <div style={{
+                                            height: '100vh',
+                                            backgroundImage: `url(${'https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/howlYoung.png?alt=media&token=48d00b6a-a03f-4b54-a4dc-c97809415b0f'})`,
+                                            padding: '1em',
+                                            backgroundRepeat: 'no-repeat',
+                                            backgroundSize: 'cover'
+                                        }}>
+                                        </div>
+                                    </div>
                                     : <div></div>}
+
 
                             </div>
 

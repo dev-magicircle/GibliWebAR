@@ -127,32 +127,32 @@ class FirstAr extends Component {
 
     render() {
         return (<div>
-                {!this.state.arEnter ?
+                {this.state.arEnter ?
                     //ar들어온 후
-                    // <div>
-                    //     <QrReader
-                    //         delay={300}
-                    //         onError={this.handleError}
-                    //         onScan={this.handleScan}
-                    //         // style={{width: '100%'}}
-                    //     />
-                    //
-                    //     {!this.state.result == 'https://qrco.de/bbrCSd' ? <div></div> :
-                    //         <div className='compass1'>
-                    //             <img id='compass1Red' style={{width: '50vw'}} onClick={this._compass1RedEnter}
-                    //                  src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/compass_red.png?alt=media&token=b24735f1-d62b-4bab-8895-61d9580f8d80"/>
-                    //             <img id='compass1Black' style={{width: '50vw'}} onClick={this._compass1BlackEnter}
-                    //                  src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/compass_black.png?alt=media&token=0ebea1d8-3e61-4f39-a585-ceef2e600d71"/>
-                    //             <img id='compass1Blue' style={{width: '50vw'}} onClick={this._compass1BlueEnter}
-                    //                  src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/compass_blue.png?alt=media&token=61e95f41-9643-42eb-b04b-22a049d7927c"/>
-                    //             <img id='compass1Green' style={{width: '50vw'}} onClick={this._compass1GreenEnter}
-                    //                  src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/compass_green.png?alt=media&token=202c90c6-b35b-4084-b7a2-434e5aee7124"/>
-                    //
-                    //             {/*<Link to={`/compass/${this.state.password}`}>*/}
-                    //             {/*    <button>Go</button>*/}
-                    //             {/*</Link>*/}
-                    //         </div>}
-                    // </div>
+                    <div>
+                        <QrReader
+                            delay={300}
+                            onError={this.handleError}
+                            onScan={this.handleScan}
+                            // style={{width: '100%'}}
+                        />
+
+                        {!this.state.result == 'https://qrco.de/bbrCSd' ? <div></div> :
+                            // <div className='compass1'>
+                            //     <img id='compass1Red' style={{width: '50vw'}} onClick={this._compass1RedEnter}
+                            //          src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/compass_red.png?alt=media&token=b24735f1-d62b-4bab-8895-61d9580f8d80"/>
+                            //     <img id='compass1Black' style={{width: '50vw'}} onClick={this._compass1BlackEnter}
+                            //          src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/compass_black.png?alt=media&token=0ebea1d8-3e61-4f39-a585-ceef2e600d71"/>
+                            //     <img id='compass1Blue' style={{width: '50vw'}} onClick={this._compass1BlueEnter}
+                            //          src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/compass_blue.png?alt=media&token=61e95f41-9643-42eb-b04b-22a049d7927c"/>
+                            //     <img id='compass1Green' style={{width: '50vw'}} onClick={this._compass1GreenEnter}
+                            //          src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/compass_green.png?alt=media&token=202c90c6-b35b-4084-b7a2-434e5aee7124"/>
+                                {/*<Link to={`/compass/${this.state.password}`}>*/}
+                                {/*    <button>Go</button>*/}
+                                {/*</Link>*/}
+                            {/*</div>*/}
+                        }
+                    {/*</div>*/}
                     <AFrameRenderer
                         inherent={true}
                         getSceneRef={(ref) => this.scene = ref}
