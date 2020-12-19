@@ -6,6 +6,9 @@ import Camera from './pages/mobile/Camera';
 import FirstAr from "./pages/mobile/FirstAr";
 import Compass from './pages/mobile/Compass';
 import Persona from './pages/web/Persona';
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init();
 
 class App extends React.Component {
     constructor(props){

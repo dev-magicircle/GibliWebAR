@@ -46,11 +46,11 @@ class Home extends React.Component {
                 compass2GreenEnter: false,
                 compass2YellowEnter: false,
                 compass2BalckEnter: false,
-                howlEnter:false,
-                turnipHeadEnter:false,
-                witchEnter:false,
-                marklEnter:false,
-                sophieEnter:false
+                howlEnter: false,
+                turnipHeadEnter: false,
+                witchEnter: false,
+                marklEnter: false,
+                sophieEnter: false
             });
         })).then((dataSnapshot => {
             Firebase.database().ref('/' + this.state.id).on('value', (snapshot) => {
@@ -79,7 +79,12 @@ class Home extends React.Component {
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover'
                     }}>
-                        <div id="section1Title">Howl’s Moving Castle</div>
+                        <div className="navbar navbar-default"
+                             data-aos="zoom-in"
+                             data-aos-delay="50"
+                             data-aos-duration="2000"
+                             data-aos-easing="ease-in-out-cubic" id="section1Title">Howl’s Moving Castle
+                        </div>
                     </FullpageSection>
                     <FullpageSection style={{
                         backgroundImage: `url(${'https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/W%20%EC%A0%84%EC%8B%9C%20%EC%86%8C%EA%B0%9C%202-min.png?alt=media&token=dd930606-d824-4ec5-847b-4f83d0664b66'})`,
@@ -115,7 +120,8 @@ class Home extends React.Component {
                                  src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/frame.png?alt=media&token=5be0fe12-c438-4600-a856-498b21daca68"/>
                             <div>
                                 {/*{this.state.doorEnter ? <Link to={`/Door/${this.state.id}`}><button></button></Link>:'d'}*/}
-                                <div style={{color: 'black'}}>
+                                <div data-aos="fade-up"
+                                     data-aos-duration="3000" style={{color: 'black', fontWeight: '800', fontSize: '25px'}}>
                                     Take this QR CODE with your phone.<br/>
                                     And enter '{this.state.id}'.
                                 </div>

@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import "fullpage.js/vendors/scrolloverflow";
 import ReactFullpage from "@fullpage/react-fullpage";
-
+import AFrameRenderer from "../../aframe/AframeRender";
+import Marker from "../../aframe/Marker";
+import AwesomeSlider from 'react-awesome-slider';
+import $ from "jquery";
 import Swiper from 'swiper'
 import '../../css/Persona.css';
 import Slider from "react-slick";
@@ -19,20 +22,20 @@ var settings = {
     slidesToScroll: 1
 };
 
-function Section() {
-    return
-    (<div className="section">
-        <div className="slide">
-            <h3>Slide 2.1</h3>
-        </div>
-        <div className="slide">
-            <h3>Slide 2.2</h3>
-        </div>
-        <div className="slide">
-            <h3>Slide 2.3</h3>
-        </div>
-    </div>)
-}
+// function Section() {
+//     return
+//     (<div className="section">
+//         <div className="slide">
+//             <h3>Slide 2.1</h3>
+//         </div>
+//         <div className="slide">
+//             <h3>Slide 2.2</h3>
+//         </div>
+//         <div className="slide">
+//             <h3>Slide 2.3</h3>
+//         </div>
+//     </div>)
+// }
 
 class Persona extends React.Component {
     state = {
@@ -44,6 +47,27 @@ class Persona extends React.Component {
         sophieEnter: false,
     };
 
+    componentDidMount() {
+        window.$(".slides").slick({
+            asNavFor: '.captions',
+            slidesToScroll: 1,
+            infinite: true,
+            speed: 200,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            dots: true,
+        })
+
+        window.$(".captions").slick({
+            asNavFor: '.slides',
+            infinite: false,
+            speed: 200,
+            fade: true,
+
+            prevArrow: '<div class="pagination__button"><i class="material-icons">left</i></div>',
+            nextArrow: '<div class="pagination__button"><i class="material-icons">right</i></div>'
+        })
+    }
 
     onLeave(origin, destination, direction) {
         console.log("Leaving section " + origin.index);
@@ -113,9 +137,34 @@ class Persona extends React.Component {
                                      })}/>
 
                             </div>
+
                             <div className="section">
-                                {this.state.marklEnter?
-                                    <div>dd</div>:<div></div>}
+
+                                {this.state.howlEnter?
+                                    <AFrameRenderer
+                                        inherent={true}
+                                        getSceneRef={(ref) => this.scene = ref}
+                                        // arToolKit={{ trackingMethod: "tango" }}
+                                    >
+                                        <Marker markerhandler parameters={{
+                                            "hit-testing-enabled": true,
+                                            preset: 'pattern',
+                                            type: 'pattern',
+                                            patternUrl: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt',
+                                            url: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt',
+                                            // "hit-testing-enabled": true
+                                        }}>
+                                            <a-box onClick={() => this.appendChild()}>><button>d</button></a-box>
+                                            {/*<a-entity*/}
+                                            {/*    // onClick={this._entityClick}*/}
+                                            {/*    position="0 0 0"*/}
+                                            {/*    scale="0.05 0.05 0.05"*/}
+                                            {/*    gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"*/}
+                                            {/*></a-entity>*/}
+                                        </Marker>
+                                    </AFrameRenderer>
+                                    : <div></div>}
+
                             </div>
 
                             {/*{this.state.marklEnter ?*/}

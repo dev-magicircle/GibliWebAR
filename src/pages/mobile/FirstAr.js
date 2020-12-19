@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Firebase from '../../firebase.json'
+import Firebase from 'firebase';
 import config from "../../firebase.config"
 import '../../js/firstar'
 import AFrameRenderer from "../../aframe/AframeRender";
@@ -18,16 +18,65 @@ class FirstAr extends Component {
         doorEnter: false,
         arEnter: false,
         result: 'No result',
-        compass1Black: false,
-        compass1Blue: false,
-        compass1Green: false,
-        compass1Red: false,
-        compass2Black: false,
-        compass2Green: false,
-        compass2Red: false,
-        compass2Yellow: false,
+
     };
 
+    componentDidMount() {
+        if (!Firebase.apps.length) Firebase.initializeApp(config);
+    }
+
+    //Firebase RDB 값 바꿈
+    _compass1RedEnter = async () => {
+        if (!Firebase.apps.length) Firebase.initializeApp(config);
+        console.log('click');
+        Firebase.database().ref('/' + this.state.password).update({
+            compass1BlackEnter: false,
+            compass1BlueEnter: false,
+            compass1GreenEnter: false,
+            compass1RedEnter: true,
+            compass2BlackEnter: false,
+            compass2GreenEnter: false,
+            compass2RedEnter: false,
+            compass2YellowEnter: false,
+        });
+    }
+    _compass1BlackEnter = async () => {
+        if (!Firebase.apps.length) Firebase.initializeApp(config);
+        Firebase.database().ref('/' + this.state.password).update({
+            compass1BlackEnter: true,
+            compass1BlueEnter: false,
+            compass1GreenEnter: false,
+            compass1RedEnter: false,
+            compass2BlackEnter: false,
+            compass2GreenEnter: false,
+            compass2RedEnter: false,
+            compass2YellowEnter: false,
+        });
+    }
+    _compass1BlueEnter = async () => {
+        if (!Firebase.apps.length) Firebase.initializeApp(config);
+        Firebase.database().ref('/' + this.state.password).update({
+            compass1BlueEnter: true,
+            compass1GreenEnter: false,
+            compass1RedEnter: false,
+            compass2BlackEnter: false,
+            compass2GreenEnter: false,
+            compass2RedEnter: false,
+            compass2YellowEnter: false,
+        });
+    }
+    _compass1GreenEnter = async () => {
+        if (!Firebase.apps.length) Firebase.initializeApp(config);
+        Firebase.database().ref('/' + this.state.password).update({
+            compass1BlueEnter: false,
+            compass1GreenEnter: true,
+            compass1RedEnter: false,
+            compass2BlackEnter: false,
+            compass2GreenEnter: false,
+            compass2RedEnter: false,
+            compass2YellowEnter: false,
+        });
+    }
     handleScan = data => {
         if (data) {
             this.setState({
@@ -39,47 +88,14 @@ class FirstAr extends Component {
         console.error(err)
     }
 
-    componentDidMount() {
-        this._getDoorEnter();
-        // this._getVisible();
-    }
 
-    //고유 숫자 번호 추가
-    _getDoorEnter = async () => {
-        let num = 0;
-        if (!Firebase.apps.length) Firebase.initializeApp(config);
-        Firebase.database().ref('/' + this.state.password).on("value", (snapshot) => {
-            const compass1BlackData = snapshot.val().compass1Black;
-            const compass1BlueData = snapshot.val().compass1Blue;
-            const compass1GreenData = snapshot.val().compass1Green;
-            const compass1RedData = snapshot.val().compass1Red;
-            const compass2BlackData = snapshot.val().compass2Black;
-            const compass2GreenData = snapshot.val().compass2Green;
-            const compass2RedData = snapshot.val().compass2Red;
-            const compass2YellowData = snapshot.val().compass2Yellow;
-            this.setState({
-                compass1Black: compass1BlackData,
-                compass1Blue: compass1BlueData,
-                compass1Green: compass1GreenData,
-                compass1Red: compass1RedData,
-                compass2Black: compass2BlackData,
-                compass2Green: compass2GreenData,
-                compass2Red: compass2RedData,
-                compass2Yellow: compass2YellowData,
-            })
+    // })).then((dataSnapshot => {
+    //     Firebase.database().ref('/' + this.state.id).on('value', (snapshot) => {
+    //         const data = snapshot.val().doorEnter;
+    //         this.setState({doorEnter: data});
+    //     })
+    // }))
 
-        })
-            .then((dataSnapshot => {
-
-            }))
-        // })).then((dataSnapshot => {
-        //     Firebase.database().ref('/' + this.state.id).on('value', (snapshot) => {
-        //         const data = snapshot.val().doorEnter;
-        //         this.setState({doorEnter: data});
-        //     })
-        // }))
-
-    }
 
     handleChange = (e) => {
         this.setState({
@@ -113,47 +129,57 @@ class FirstAr extends Component {
         return (<div>
                 {!this.state.arEnter ?
                     //ar들어온 후
-                    <div>
-                        <QrReader
-                            delay={300}
-                            onError={this.handleError}
-                            onScan={this.handleScan}
-                            // style={{width: '100%'}}
-                        />
-                        <p>{this.state.result}</p>
-                        {this.state.result != 'https://qrco.de/bbrCSd' ? <div></div> :
-                            <div>
-                                <img src=""/>
-                                <img/>
-                                <img/>
-                                <img/>
-                                {/*<Link to={`/compass/${this.state.password}`}>*/}
-                                {/*    <button>Go</button>*/}
-                                {/*</Link>*/}
-                            </div>}
-                    </div>
-                    // <AFrameRenderer
-                    //     inherent={true}
-                    //     getSceneRef={(ref) => this.scene = ref}
-                    //     // arToolKit={{ trackingMethod: "tango" }}
-                    // >
-                    //     <Marker markerhandler parameters={{
-                    //         "hit-testing-enabled": true,
-                    //         preset: 'pattern',
-                    //         type: 'pattern',
-                    //         patternUrl: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt',
-                    //         url: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt',
-                    //         // "hit-testing-enabled": true
-                    //     }}>
-                    //         <a-box onClick={() => this.appendChild()}>><button>d</button></a-box>
-                    //         {/*<a-entity*/}
-                    //         {/*    // onClick={this._entityClick}*/}
-                    //         {/*    position="0 0 0"*/}
-                    //         {/*    scale="0.05 0.05 0.05"*/}
-                    //         {/*    gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"*/}
-                    //         {/*></a-entity>*/}
-                    //     </Marker>
-                    // </AFrameRenderer>
+                    // <div>
+                    //     <QrReader
+                    //         delay={300}
+                    //         onError={this.handleError}
+                    //         onScan={this.handleScan}
+                    //         // style={{width: '100%'}}
+                    //     />
+                    //
+                    //     {!this.state.result == 'https://qrco.de/bbrCSd' ? <div></div> :
+                    //         <div className='compass1'>
+                    //             <img id='compass1Red' style={{width: '50vw'}} onClick={this._compass1RedEnter}
+                    //                  src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/compass_red.png?alt=media&token=b24735f1-d62b-4bab-8895-61d9580f8d80"/>
+                    //             <img id='compass1Black' style={{width: '50vw'}} onClick={this._compass1BlackEnter}
+                    //                  src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/compass_black.png?alt=media&token=0ebea1d8-3e61-4f39-a585-ceef2e600d71"/>
+                    //             <img id='compass1Blue' style={{width: '50vw'}} onClick={this._compass1BlueEnter}
+                    //                  src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/compass_blue.png?alt=media&token=61e95f41-9643-42eb-b04b-22a049d7927c"/>
+                    //             <img id='compass1Green' style={{width: '50vw'}} onClick={this._compass1GreenEnter}
+                    //                  src="https://firebasestorage.googleapis.com/v0/b/gibliwebar.appspot.com/o/compass_green.png?alt=media&token=202c90c6-b35b-4084-b7a2-434e5aee7124"/>
+                    //
+                    //             {/*<Link to={`/compass/${this.state.password}`}>*/}
+                    //             {/*    <button>Go</button>*/}
+                    //             {/*</Link>*/}
+                    //         </div>}
+                    // </div>
+                    <AFrameRenderer
+                        inherent={true}
+                        getSceneRef={(ref) => this.scene = ref}
+                        // arToolKit={{ trackingMethod: "tango" }}
+                    >
+                        <Marker markerhandler parameters={{
+                            "hit-testing-enabled": true,
+                            preset: 'pattern',
+                            type: 'pattern',
+                            patternUrl: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt',
+                            url: 'https://raw.githubusercontent.com/dev-magicircle/GibliWebAR/master/src/images/pattern-compass.patt',
+                            // "hit-testing-enabled": true
+                        }}>
+                            <a-image  rotation="-90 0 0" src="https://tpc.googlesyndication.com/simgad/6785946098714999368"></a-image>
+                            {/*<a-entity*/}
+                            {/*    // onClick={this._entityClick}*/}
+                            {/*    position="0 0 0"*/}
+                            {/*    scale="0.05 0.05 0.05"*/}
+                            {/*    gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"*/}
+                            {/*></a-entity>*/}
+                        </Marker>
+                        <Marker parameters={{ preset: 'hiro' }}>
+                            <a-box color='pink' material='opacity: 1;' position="0 0.003 0" scale='0.4 0.4 0.4'>
+                                <a-animation attribute="rotation" to="360 0 0" dur="5000" easing="linear" repeat="indefinite" />
+                            </a-box>
+                        </Marker>
+                    </AFrameRenderer>
 
                     :
                     //ar들어오기 전
